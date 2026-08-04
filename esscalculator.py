@@ -7,11 +7,11 @@ print("Enter Your 2nd Number")
 N2 = int(input())
 
 sum = N1 + N2
-sub = N1 - N2
-mul = N1 * N2
-div = N1 / N2
+subtraction = N1 - N2
+multiply = N1 * N2
+division = N1 / N2
 
 print("Addition =", sum)
-print("Subtraction =", sub)
-print("Multiplication =", mul)
-print("Division =", div)
+print("Subtraction =", subtraction)
+print("Multiplication =", multiply)
+print("Division =", division)
