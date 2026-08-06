@@ -38,4 +38,8 @@ print(info)
 #copy 
 info2=info.copy()
 print(info2)
+#length
+print(len(info))
+print(len(info2))
+
 
