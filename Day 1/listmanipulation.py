@@ -6,6 +6,7 @@ print("List of Departments",ESS)
 
 print("The Length of the List is Before",len(ESS))
 ESS.pop(6)
+ESS.insert(4,"David")
 
 print("The Length of the List is After",len(ESS))
 print(ESS)
