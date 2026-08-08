@@ -7,4 +7,17 @@ for char in z:
         y [char]=1
 print(y)   
 
+#frequency
+cities=["100","100","200","120","200","100"]
+size={}
+for char in cities:
+    if char in size:
+        size[char]+=1
+    else:
+        size[char]=1
+print(size)
+
+
+
+
 
