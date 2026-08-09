@@ -1,3 +1,6 @@
+print("Data Types In Python")
+
+
 age=19
 marks=1090
 year="2026"
