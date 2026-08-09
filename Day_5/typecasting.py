@@ -1,3 +1,5 @@
+print("Typecasting")
+
 a = "25"
 b = int(a)
 
