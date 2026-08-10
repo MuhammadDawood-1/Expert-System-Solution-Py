@@ -5,9 +5,7 @@ if age>=18:
     print("Adult:")
 else:
     print("Minor")
-    
-    
-    
+       
 #q2
 
 number=int(input("ENTER YOUR NUMBER:"))
