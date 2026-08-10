@@ -10,3 +10,6 @@ elif marks >= 70:
     print("C")
 else:
     print("Fail")
+    
+    
+    

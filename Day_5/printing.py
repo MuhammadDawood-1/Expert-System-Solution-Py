@@ -13,7 +13,7 @@ add=0
 diff=0
 mul=0
 div=0
-
+print("-----------------------------")
 add=25+15
 print(add)
 diff=100-45
