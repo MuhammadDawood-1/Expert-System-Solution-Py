@@ -5,6 +5,6 @@ print(-5)
 print(0)
 
 
-check = lambda x: "even " if x % 2 == 0 else "odd "  if x< 0 else "tryagain"
-print(10)
-
+my_list=[1,2,3,4,5,6]
+even=list(filter(lambda x:x%2==0,my_list))
+print(even)
