@@ -30,15 +30,15 @@ print(e.get_data())
 
 
 
-class fast(zaigham):
-    def __init__(self, Name, age, cell_no,uni,section):
-        super().__init__(Name, age, cell_no)
-        self.university=uni
-        self.sec=section
-        return super()._info()
-        print(self.university)
-        print(self.sec)
+# class fast(zaigham):
+#     def __init__(self, Name, age, cell_no,uni,section):
+#         super().__init__(Name, age, cell_no)
+#         self.university=uni
+#         self.sec=section
+#         return super()._info()
+#         print(self.university)
+#         print(self.sec)
     
     
-    f=fast("haha",10,"23332","FASTNU","B")
+#     f=fast("haha",10,"23332","FASTNU","B")
     
