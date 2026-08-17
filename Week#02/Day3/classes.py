@@ -30,5 +30,5 @@ class Dawood:
 
 david = Dawood("Dawood", "03367482399", "Python Developer")
 
-print(david.job)
+# print(david.job)
 print(david.print_info())
