@@ -17,7 +17,7 @@ class ess(zaigham):
         self.age = age
         self.id =id
     def getdata(self):
-        super()._info()
+        return super()._info()
 class d(ess):
     def __init__(self,age,name,cell_no,id):
         super().__init__(age,name,cell_no,id)
