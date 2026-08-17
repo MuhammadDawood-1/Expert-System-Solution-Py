@@ -8,3 +8,5 @@ xc=Counter("expert system solution")
 print(za)
 print(xc)
 
+print(c[5])
+print(za['d'])
