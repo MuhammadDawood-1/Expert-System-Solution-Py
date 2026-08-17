@@ -41,4 +41,5 @@ print(e.get_data())
     
     
 #     f=fast("haha",10,"23332","FASTNU","B")
+
     

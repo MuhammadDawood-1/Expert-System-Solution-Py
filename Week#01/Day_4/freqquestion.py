@@ -7,7 +7,7 @@ for char in z:
         y [char]=1
 print(y)   
 
-#frequency
+#frequency program
 cities=["100","100","200","120","200","100"]
 size={}
 for char in cities:
