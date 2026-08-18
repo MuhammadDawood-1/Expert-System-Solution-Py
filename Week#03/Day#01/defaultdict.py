@@ -8,8 +8,6 @@ for i in range(5):
 print("Dictionary with values as list:") 
 print(d)
 
-
-
 students = defaultdict(list)
 
 students["CS"].append("Ali")
