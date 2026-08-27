@@ -9,7 +9,9 @@ while True:
    response= client.models.generate_content(model="gemini-3.6-flash",
        contents=question)
    
-   print("Gemini:",response.text)
+   print("David:",response.text)
+   
+   
    
    
    
