@@ -45,3 +45,4 @@
 #     context = {"year": year, "article_list": a_list}
 #     return render(request, "news/year_archive.html", context)
 
+# basic practice
