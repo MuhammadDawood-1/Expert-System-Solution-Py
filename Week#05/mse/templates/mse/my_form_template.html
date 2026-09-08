@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Property Form</h1><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Property</title>
+</head>
+<body>
+    <h1>Add New Property</h1>
+    
+    <!-- The form submits back to the same view using POST -->
+    <form method="POST">
+        <!-- Django requires this security token for all POST forms -->
+        {% csrf_token %}
+        
+        <!-- Renders your form fields wrapped in paragraph tags -->
+        {{ form.as_p }}
+        
+        <button type="submit">Submit Property</button>
+    </form>
+</body>
+</html>
+
+</body>
+</html>

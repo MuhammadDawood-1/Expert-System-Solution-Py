@@ -15,8 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include 
+# Yahan 'forms' ki jagah apni us App ka sahi naam likhein jahan forms.py aur views.py hain
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('mse/', include('mse.urls')),
+    # Aap ke views.py mein function ka naam 'show_my_form' hai, isliye hum yahan wohi likhenge
+    # path('', views.show_my_form, name='property_form'),
 ]
