@@ -6,3 +6,5 @@ class PropertyAdmin(admin.ModelAdmin):
     list_filter = ('property_type', 'status', 'created_at', 'updated_at')
     search_fields = ('title', 'description', 'location')
 admin.site.register(Property, PropertyAdmin)
+
+
