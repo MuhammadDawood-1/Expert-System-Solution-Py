@@ -11,3 +11,7 @@ class Property(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     status=models.CharField(max_length=20, choices=[('available', 'Available'), ('sold', 'Sold')], default='available')
+    
+    
+    
+    

@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import PropertyForm
-
-
 # def show_my_form(request):
 #     form = PropertyForm()
 #     return render(request, 'my_form_template.html', {'form': form})
-
-
-
 def show_my_form(request):
     if request.method == 'POST':
         form = PropertyForm(request.POST)
