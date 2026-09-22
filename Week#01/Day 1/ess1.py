@@ -32,4 +32,6 @@ nastp=100
 fast=200
 add=fast+nastp
 print("addition",add)
+print("subtraction",fast-nastp)
+
 
