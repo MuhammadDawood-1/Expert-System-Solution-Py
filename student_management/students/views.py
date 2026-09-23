@@ -12,5 +12,6 @@ def home(request):
     student_name = "Dawood"
 
     return render(request, "students/home.html", {
-        "student_name": student_name
+        "student_name": student_name,
+        "is_student": True,
     })

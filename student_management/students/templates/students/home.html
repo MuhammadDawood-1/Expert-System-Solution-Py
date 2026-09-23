@@ -14,7 +14,7 @@
 
 
 <!DOCTYPE html>
-<html>
+{% comment %} <html>
 <head>
     <title>Student Management System</title>
 </head>
@@ -25,4 +25,12 @@
     <p>This is our first dynamic Django page.</p>
 
 </body>
-</html>
+</html> {% endcomment %}
+
+<h1>Welcome, {{ student_name }}!</h1>
+
+{% if is_student %}
+    <p>You are a student.</p>
+{% else %}
+    <p>You are not a student.</p>
+{% endif %}
