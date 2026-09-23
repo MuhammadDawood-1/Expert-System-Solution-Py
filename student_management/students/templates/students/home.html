@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html>
 <head>
     <title>Student Management System</title>
@@ -8,6 +8,21 @@
     <h1>Welcome to the Student Management System!</h1>
 
     <p>This is our first Django HTML page.</p>
+
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Management System</title>
+</head>
+<body>
+
+    <h1>Welcome, {{ student_name }}!</h1>
+
+    <p>This is our first dynamic Django page.</p>
 
 </body>
 </html>
