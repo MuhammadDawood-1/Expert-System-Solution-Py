@@ -34,3 +34,6 @@ def student_list(request):
         "students": students
     })
     
+    
+    
+    
