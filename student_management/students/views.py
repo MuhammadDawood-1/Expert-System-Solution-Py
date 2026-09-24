@@ -15,10 +15,22 @@
 #         "student_name": student_name,
 #         "is_student": True,
 #     })
-from django.shortcuts import render
-def home(request):
-    students = ["Dawood", "Ali", "Ahmed"]
+# from django.shortcuts import render
+# def home(request):
+#     students = ["Dawood", "Ali", "Ahmed"]
 
-    return render(request, "students/home.html", {
+#     return render(request, "students/home.html", {
+#         "students": students
+#     })
+    
+    
+from django.shortcuts import render
+from .models import Student
+
+def student_list(request):
+    students = Student.objects.all()
+
+    return render(request, "students/student_list.html", {
         "students": students
     })
+    
