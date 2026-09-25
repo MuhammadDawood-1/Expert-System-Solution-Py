@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import serializers
+from .models import (Showroom,Cars,Customer,Sale,)
+from .serializers import (myshowroomserializer,mycarserializer,mycustomerserializer,mysaleserializer,)
 
-# Create your views here.
+
+
+
