@@ -25,9 +25,6 @@ Including another URLconf
 #     # path('', home),
 #     path('students/',include('students.urls')),
     
-
-
-
 from django.contrib import admin
 from django.urls import include, path
 
