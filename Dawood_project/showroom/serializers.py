@@ -25,3 +25,5 @@ class mysaleserializer(serializers.ModelSerializer):
         fields='customer','car','sale_date','sale_price'
         
         
+        
+        

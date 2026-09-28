@@ -38,11 +38,7 @@ class Sale(models.Model):
     sale_price=models.DecimalField(max_digits=8,decimal_places=2)
     
     def __str__(self):
-        return self.customer.name + " - " + self.car.name    
-    
-    
-
-    
+        return self.customer.name + " - " + self.car.name        
     
     
     
