@@ -32,15 +32,19 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 
 # JWT authentication views
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
 )
+from showroom.auth import ShowroomTokenObtainPairView
 
 
 urlpatterns = [
+    # Showroom frontend
+    path('', TemplateView.as_view(template_name='showroom/index.html'), name='home'),
+
     # Django admin
     path('admin/', admin.site.urls),
 
@@ -51,7 +55,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
     # Login: username + password → access + refresh tokens
-    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/', ShowroomTokenObtainPairView.as_view()),
 
     # Refresh: refresh token → new access token
     path('api/token/refresh/', TokenRefreshView.as_view()),
