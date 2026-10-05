@@ -16,6 +16,7 @@ class Cars(models.Model):
     car_type=models.CharField(max_length=50)
     car_registration_no=models.CharField(max_length=50)
     car_price=models.DecimalField(max_digits=8,decimal_places=2)
+    car_company=models.CharField(max_length=50)
     
     def __str__(self):
         return self.name

@@ -11,7 +11,7 @@ class myshowroomserializer(serializers.ModelSerializer):
 class mycarserializer(serializers.ModelSerializer):
     class Meta:
         model=Cars        
-        fields='id','name','showroomcars','car_type','car_registration_no','car_price'
+        fields='id','name','showroomcars','car_type','car_registration_no','car_price','car_company'
         
         
 class mycustomerserializer(serializers.ModelSerializer):
