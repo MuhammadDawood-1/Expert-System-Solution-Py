@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Showroom | Showroom Management System</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17251f;
+      --muted: #718078;
+      --line: #e3e9e4;
+      --paper: #f5f7f4;
+      --white: #fff;
+      --green: #176c4a;
+      --green-dark: #10553a;
+      --lime: #d9ed79;
+      --red: #a64437;
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); min-height: 100vh; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; background: var(--white); border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: .3px; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--green); color: white; font-size: 19px; }
+    .brand small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; font-weight: 650; letter-spacing: 1.2px; text-transform: uppercase; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; }
+    .button { border: 0; border-radius: 6px; padding: 10px 15px; font-size: 13px; font-weight: 700; }
+    .button-primary { background: var(--green); color: white; }
+    .button-primary:hover { background: var(--green-dark); }
+    .button-quiet { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .shell { width: min(1160px, 90vw); margin: 42px auto 64px; }
+    .eyebrow { margin: 0 0 9px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+    h1 { margin: 0; font-size: 38px; letter-spacing: 0; line-height: 1.15; }
+    .subtitle { margin: 10px 0 28px; color: var(--muted); font-size: 14px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 25px 0 30px; }
+    .stat { min-height: 114px; padding: 19px 20px; background: var(--white); border: 1px solid var(--line); border-radius: 7px; }
+    .stat-label { color: var(--muted); font-size: 12px; font-weight: 650; }
+    .stat-value { margin-top: 13px; font-size: 27px; font-weight: 750; }
+    .content-head { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 13px; }
+    .tabs { display: flex; gap: 4px; padding: 4px; background: #e9eee9; border-radius: 7px; }
+    .tab { padding: 9px 14px; border: 0; border-radius: 5px; background: transparent; color: #59675f; font-size: 13px; font-weight: 700; }
+    .tab[aria-selected="true"] { background: var(--white); color: var(--green-dark); box-shadow: 0 1px 3px #17251f18; }
+    .table-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--line); border-radius: 7px; }
+    .table-actions { display: flex; align-items: center; gap: 7px; }
+    .button-small { padding: 7px 10px; font-size: 12px; }
+    .button-danger { border: 1px solid #efd8d4; background: #fff; color: var(--red); }
+    dialog { width: min(520px, calc(100vw - 32px)); max-height: 85vh; padding: 0; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); box-shadow: 0 18px 60px #17251f33; }
+    dialog::backdrop { background: #10231bc2; }
+    .dialog-form { padding: 24px; }
+    .dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+    .dialog-heading h2 { margin: 0; font-size: 20px; }
+    .dialog-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+    .dialog-fields .field { min-width: 0; }
+    .dialog-fields input:not([type="checkbox"]), .dialog-fields select { width: 100%; padding: 11px; border: 1px solid #d7dfd9; border-radius: 5px; }
+    .dialog-fields .check-field { display: flex; align-items: center; gap: 9px; padding-top: 24px; }
+    .dialog-footer { display: flex; justify-content: flex-end; gap: 9px; margin-top: 18px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+    th { padding: 13px 18px; border-bottom: 1px solid var(--line); color: var(--muted); background: #fbfcfb; font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; white-space: nowrap; }
+    td { padding: 15px 18px; border-bottom: 1px solid #edf0ed; white-space: nowrap; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .empty { padding: 30px; color: var(--muted); text-align: center; }
+    .status { min-height: 20px; margin: 12px 0; color: var(--muted); font-size: 13px; }
+    .status.error { color: var(--red); }
+    .login-panel { width: min(430px, 100%); margin: 9vh auto; padding: 30px; background: var(--white); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 14px 44px #17251f0c; }
+    .login-panel h1 { font-size: 28px; }
+    .login-panel .subtitle { margin-bottom: 25px; }
+    .field { display: block; margin: 16px 0; color: #44534b; font-size: 12px; font-weight: 700; }
+    .field input:not([type="checkbox"]) { display: block; width: 100%; margin-top: 7px; padding: 12px; border: 1px solid #d7dfd9; border-radius: 5px; outline-color: var(--green); }
+    .login-panel .button { width: 100%; margin-top: 5px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 760px) {
+      .topbar { padding: 0 5vw; }
+      .shell { margin-top: 30px; }
+      h1 { font-size: 27px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .stat { min-height: 95px; padding: 15px; }
+      .stat-value { font-size: 24px; }
+      .content-head { align-items: flex-start; flex-direction: column; }
+      .tabs { width: 100%; overflow-x: auto; }
+      .tab { flex: 1; padding: 9px 10px; }
+    }
+    @media (max-width: 440px) {
+      .topbar-right #user-label { display: none; }
+      .login-panel { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">S</span><span>Showroom Management System<small>Showroom management</small></span></div>
+    <div class="topbar-right" id="account-bar" hidden>
+      <span id="user-label">Connected</span>
+      <button class="button button-quiet" id="logout-button" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section id="login-view" class="login-panel" hidden>
+      <p class="eyebrow">Showroom portal</p>
+      <h1>Welcome back.</h1>
+      <p class="subtitle">Sign in to view your showroom records.</p>
+      <form id="login-form">
+        <label class="field">Username<input name="username" autocomplete="username" required></label>
+        <label class="field">Password<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="button button-primary" type="submit">Sign in</button>
+      </form>
+      <p id="login-status" class="status" role="status"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <p class="eyebrow">Overview</p>
+      <h1>Your showroom, at a glance.</h1>
+      <p class="subtitle">A live view of your vehicles, customers, and sales.</p>
+      <div class="stats" aria-label="Record totals">
+        <article class="stat"><div class="stat-label">Showrooms</div><div class="stat-value" id="count-showrooms">—</div></article>
+        <article class="stat"><div class="stat-label">Vehicles</div><div class="stat-value" id="count-cars">—</div></article>
+        <article class="stat" data-stat-resource="customers"><div class="stat-label">Customers</div><div class="stat-value" id="count-customers">—</div></article>
+        <article class="stat" data-stat-resource="sales"><div class="stat-label">Sales</div><div class="stat-value" id="count-sales">—</div></article>
+      </div>
+      <div class="content-head">
+        <h2 id="table-title" style="margin:0;font-size:18px">Showrooms</h2>
+        <div class="table-actions">
+        <div class="tabs" role="tablist" aria-label="Record type">
+          <button class="tab" role="tab" aria-selected="true" data-resource="showrooms">Showrooms</button>
+          <button class="tab" role="tab" aria-selected="false" data-resource="cars">Vehicles</button>
+          <button class="tab" role="tab" aria-selected="false" data-resource="customers">Customers</button>
+          <button class="tab" role="tab" aria-selected="false" data-resource="sales">Sales</button>
+        </div>
+        <button class="button button-primary" id="add-record-button" type="button">+ Add record</button>
+        </div>
+      </div>
+      <p id="dashboard-status" class="status" role="status"></p>
+      <div class="table-wrap">
+        <table><thead id="table-head"></thead><tbody id="table-body"></tbody></table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="record-dialog">
+    <form class="dialog-form" id="record-form">
+      <div class="dialog-heading">
+        <h2 id="record-dialog-title">Add record</h2>
+        <button class="button button-quiet button-small" id="close-dialog-button" type="button" aria-label="Close">Close</button>
+      </div>
+      <div class="dialog-fields" id="record-fields"></div>
+      <p class="status" id="form-status" role="status"></p>
+      <div class="dialog-footer">
+        <button class="button button-quiet" id="cancel-dialog-button" type="button">Cancel</button>
+        <button class="button button-primary" id="save-record-button" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const resources = {
+      showrooms: { label: 'Showrooms', url: '/api/showrooms/', fields: [
+        { label: 'Name', name: 'name', type: 'text' }, { label: 'Location', name: 'location', type: 'text' },
+        { label: 'Certified', name: 'certified_dealership', type: 'checkbox' }, { label: 'Phone', name: 'phone_no', type: 'tel' }
+      ] },
+      cars: { label: 'Vehicles', url: '/api/cars/', fields: [
+        { label: 'Name', name: 'name', type: 'text' }, { label: 'Showroom', name: 'showroomcars', type: 'select', source: 'showrooms' },
+        { label: 'Type', name: 'car_type', type: 'text' }, { label: 'Registration', name: 'car_registration_no', type: 'text' },
+        { label: 'Price', name: 'car_price', type: 'number', step: '0.01' }
+      ] },
+      customers: { label: 'Customers', url: '/api/customers/', fields: [
+        { label: 'Name', name: 'name', type: 'text' }, { label: 'Phone', name: 'cell_no', type: 'tel' },
+        { label: 'Previous vehicle', name: 'previous_car', type: 'text' }, { label: 'Email', name: 'email', type: 'email' }
+      ] },
+      sales: { label: 'Sales', url: '/api/sales/', fields: [
+        { label: 'Customer', name: 'customer', type: 'select', source: 'customers' }, { label: 'Vehicle', name: 'car', type: 'select', source: 'cars' },
+        { label: 'Date', name: 'sale_date', type: 'date' }, { label: 'Sale price', name: 'sale_price', type: 'number', step: '0.01' }
+      ] }
+    };
+    let accessToken = sessionStorage.getItem('showroom_access');
+    let currentResource = 'showrooms';
+    let currentRole = 'unassigned';
+    let editingRecord = null;
+
+    const loginView = document.getElementById('login-view');
+    const dashboard = document.getElementById('dashboard');
+    const accountBar = document.getElementById('account-bar');
+    const loginStatus = document.getElementById('login-status');
+    const dashboardStatus = document.getElementById('dashboard-status');
+
+    function showLogin(message = '') {
+      accessToken = null;
+      sessionStorage.removeItem('showroom_access');
+      dashboard.hidden = true;
+      accountBar.hidden = true;
+      loginView.hidden = false;
+      loginStatus.textContent = message;
+      loginStatus.classList.toggle('error', Boolean(message));
+    }
+
+    async function request(path, options = {}) {
+      const headers = { Authorization: `Bearer ${accessToken}`, ...options.headers };
+      if (options.body) headers['Content-Type'] = 'application/json';
+      const response = await fetch(path, { ...options, headers });
+      if (response.status === 401) {
+        showLogin('Your session has expired. Please sign in again.');
+        throw new Error('Session expired');
+      }
+      if (!response.ok) throw new Error(`Request failed (${response.status})`);
+      return response.status === 204 ? null : response.json();
+    }
+
+    function recordsFrom(data) {
+      return Array.isArray(data) ? data : (data.results || []);
+    }
+
+    function setTextRows(records, resourceName) {
+      const head = document.getElementById('table-head');
+      const body = document.getElementById('table-body');
+      const fields = resources[resourceName].fields;
+      const canManage = currentRole === 'manager';
+      head.replaceChildren();
+      body.replaceChildren();
+      const headerRow = document.createElement('tr');
+      fields.forEach(field => {
+        const cell = document.createElement('th');
+        cell.textContent = field.label;
+        headerRow.append(cell);
+      });
+      if (canManage) {
+        const actionsHeader = document.createElement('th');
+        actionsHeader.textContent = 'Actions';
+        headerRow.append(actionsHeader);
+      }
+      head.append(headerRow);
+      if (!records.length) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.className = 'empty';
+        cell.colSpan = fields.length + Number(canManage);
+        cell.textContent = 'No records found.';
+        row.append(cell);
+        body.append(row);
+        return;
+      }
+      records.forEach(record => {
+        const row = document.createElement('tr');
+        fields.forEach(field => {
+          const cell = document.createElement('td');
+          const value = record[field.name];
+          cell.textContent = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : (value ?? '—');
+          row.append(cell);
+        });
+        if (canManage) {
+          const actionsCell = document.createElement('td');
+          const actions = document.createElement('div');
+          actions.className = 'table-actions';
+          const editButton = document.createElement('button');
+          editButton.className = 'button button-quiet button-small';
+          editButton.type = 'button';
+          editButton.textContent = 'Edit';
+          editButton.addEventListener('click', () => openRecordForm(resourceName, record));
+          const deleteButton = document.createElement('button');
+          deleteButton.className = 'button button-danger button-small';
+          deleteButton.type = 'button';
+          deleteButton.textContent = 'Delete';
+          deleteButton.addEventListener('click', () => deleteRecord(resourceName, record));
+          actions.append(editButton, deleteButton);
+          actionsCell.append(actions);
+          row.append(actionsCell);
+        }
+        body.append(row);
+      });
+    }
+
+    async function loadResource(resourceName) {
+      currentResource = resourceName;
+      const resource = resources[resourceName];
+      document.getElementById('table-title').textContent = resource.label;
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.setAttribute('aria-selected', String(tab.dataset.resource === resourceName));
+      });
+      dashboardStatus.textContent = 'Loading records…';
+      dashboardStatus.classList.remove('error');
+      try {
+        const records = recordsFrom(await request(resource.url));
+        setTextRows(records, resourceName);
+        dashboardStatus.textContent = '';
+      } catch (error) {
+        dashboardStatus.textContent = error.message;
+        dashboardStatus.classList.add('error');
+      }
+    }
+
+    async function loadDashboard() {
+      if (!['manager', 'customer'].includes(currentRole)) {
+        showLogin('This account does not have a showroom role.');
+        return;
+      }
+      loginView.hidden = true;
+      dashboard.hidden = false;
+      accountBar.hidden = false;
+      document.getElementById('user-label').textContent = currentRole === 'manager' ? 'Manager' : 'Customer';
+      document.getElementById('add-record-button').hidden = currentRole !== 'manager';
+      document.querySelectorAll('[data-stat-resource]').forEach(stat => {
+        stat.hidden = currentRole !== 'manager';
+      });
+      const availableResources = currentRole === 'manager' ? Object.keys(resources) : ['showrooms', 'cars'];
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.hidden = !availableResources.includes(tab.dataset.resource);
+      });
+      if (!availableResources.includes(currentResource)) currentResource = 'showrooms';
+      dashboardStatus.textContent = 'Loading showroom data…';
+      try {
+        const entries = await Promise.all(availableResources.map(async key => [key, recordsFrom(await request(resources[key].url))]));
+        const records = Object.fromEntries(entries);
+        availableResources.forEach(key => {
+          document.getElementById(`count-${key}`).textContent = records[key].length;
+        });
+        setTextRows(records[currentResource], currentResource);
+        dashboardStatus.textContent = '';
+      } catch (error) {
+        dashboardStatus.textContent = error.message;
+        dashboardStatus.classList.add('error');
+      }
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const button = event.currentTarget.querySelector('button');
+      button.disabled = true;
+      loginStatus.textContent = 'Signing in…';
+      loginStatus.classList.remove('error');
+      try {
+        const response = await fetch('/api/token/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: form.get('username'), password: form.get('password') })
+        });
+        if (!response.ok) throw new Error('Username or password was not accepted.');
+        const tokens = await response.json();
+        const payload = JSON.parse(atob(tokens.access.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        currentRole = payload.role;
+        if (!['manager', 'customer'].includes(currentRole)) throw new Error('This account does not have a showroom role.');
+        accessToken = tokens.access;
+        sessionStorage.setItem('showroom_access', accessToken);
+        await loadDashboard();
+      } catch (error) {
+        loginStatus.textContent = error.message;
+        loginStatus.classList.add('error');
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => loadResource(tab.dataset.resource)));
+    document.getElementById('logout-button').addEventListener('click', () => showLogin());
+    document.getElementById('add-record-button').addEventListener('click', () => openRecordForm(currentResource));
+    document.getElementById('close-dialog-button').addEventListener('click', () => document.getElementById('record-dialog').close());
+    document.getElementById('cancel-dialog-button').addEventListener('click', () => document.getElementById('record-dialog').close());
+    document.getElementById('record-form').addEventListener('submit', saveRecord);
+
+    function renderRole() {
+      try {
+        const payload = JSON.parse(atob(accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+        currentRole = payload.role;
+        loadDashboard();
+      } catch {
+        showLogin();
+      }
+    }
+
+    async function openRecordForm(resourceName, record = null) {
+      editingRecord = record;
+      const resource = resources[resourceName];
+      const fieldsElement = document.getElementById('record-fields');
+      fieldsElement.replaceChildren();
+      document.getElementById('record-dialog-title').textContent = `${record ? 'Edit' : 'Add'} ${resource.label.replace(/s$/, '')}`;
+      document.getElementById('form-status').textContent = '';
+      for (const field of resource.fields) {
+        const label = document.createElement('label');
+        label.className = field.type === 'checkbox' ? 'field check-field' : 'field';
+        const input = document.createElement(field.type === 'select' ? 'select' : 'input');
+        input.name = field.name;
+        input.required = field.type !== 'checkbox';
+        if (field.type === 'select') {
+          const placeholder = document.createElement('option');
+          placeholder.value = '';
+          placeholder.textContent = `Select ${field.label.toLowerCase()}`;
+          input.append(placeholder);
+          const choices = recordsFrom(await request(resources[field.source].url));
+          choices.forEach(choice => {
+            const option = document.createElement('option');
+            option.value = choice.id;
+            option.textContent = `${choice.name} (#${choice.id})`;
+            input.append(option);
+          });
+        } else {
+          input.type = field.type;
+          if (field.step) input.step = field.step;
+          if (field.type === 'checkbox') input.checked = Boolean(record?.[field.name]);
+          else input.value = record?.[field.name] ?? '';
+        }
+        if (field.type === 'checkbox') label.append(input, document.createTextNode(field.label));
+        else label.append(document.createTextNode(field.label), input);
+        if (field.type === 'select' && record) input.value = record[field.name];
+        fieldsElement.append(label);
+      }
+      document.getElementById('record-dialog').showModal();
+    }
+
+    async function saveRecord(event) {
+      event.preventDefault();
+      const resource = resources[currentResource];
+      const form = event.currentTarget;
+      const payload = {};
+      resource.fields.forEach(field => {
+        const input = form.elements.namedItem(field.name);
+        payload[field.name] = field.type === 'checkbox' ? input.checked : input.value;
+      });
+      const button = document.getElementById('save-record-button');
+      const status = document.getElementById('form-status');
+      button.disabled = true;
+      status.textContent = 'Saving…';
+      try {
+        const path = editingRecord ? `${resource.url}${editingRecord.id}/` : resource.url;
+        await request(path, {
+          method: editingRecord ? 'PATCH' : 'POST',
+          body: JSON.stringify(payload)
+        });
+        document.getElementById('record-dialog').close();
+        await loadDashboard();
+      } catch (error) {
+        status.textContent = error.message;
+        status.classList.add('error');
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function deleteRecord(resourceName, record) {
+      if (!window.confirm(`Delete ${record.name || `record #${record.id}`}?`)) return;
+      try {
+        await request(`${resources[resourceName].url}${record.id}/`, { method: 'DELETE' });
+        await loadDashboard();
+      } catch (error) {
+        dashboardStatus.textContent = error.message;
+        dashboardStatus.classList.add('error');
+      }
+    }
+
+    if (accessToken) renderRole();
+    else showLogin();
+  </script>
+</body>
+</html>
